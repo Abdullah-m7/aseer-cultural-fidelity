@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Abdullah-m7/aseer-cultural-fidelity/benchmark/schema/case.schema.json",
+  "title": "Aseer Cultural Fidelity benchmark case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "domain",
+    "task_family",
+    "source",
+    "source_anchor",
+    "hard_invariants",
+    "soft_features",
+    "prompt_ar",
+    "prompt_en",
+    "distortion_triggers"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^ACF-[A-Z]+-[0-9]{3}$"},
+    "domain": {"type": "string", "minLength": 1},
+    "task_family": {
+      "type": "string",
+      "enum": [
+        "translation_explanation",
+        "global_marketing",
+        "luxury_hospitality_adaptation",
+        "concierge_synthesis",
+        "product_innovation",
+        "sustainability_storytelling"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "title", "url", "authority"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "pattern": "^https://"},
+        "authority": {"type": "string", "minLength": 1}
+      }
+    },
+    "source_anchor": {"type": "string", "minLength": 1},
+    "hard_invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["invariant_id", "claim", "must_surface"],
+        "properties": {
+          "invariant_id": {"type": "string", "minLength": 1},
+          "claim": {"type": "string", "minLength": 1},
+          "must_surface": {"type": "boolean"}
+        }
+      }
+    },
+    "soft_features": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "prompt_ar": {"type": "string", "minLength": 1},
+    "prompt_en": {"type": "string", "minLength": 1},
+    "distortion_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

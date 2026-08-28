@@ -1,0 +1,43 @@
+sources:
+  - id: saudipedia_aseer_food
+    title: Traditional Food in Aseer Province
+    publisher: Saudipedia
+    url: https://saudipedia.com/en/traditional-food-in-aseer-province
+    use: Dish provenance, ingredients, preparation, serving practices, regional dish designation.
+
+  - id: saudipedia_saudi_cuisine
+    title: Saudi Cuisine
+    publisher: Saudipedia
+    url: https://saudipedia.com/en/saudi-cuisine
+    use: National/regional culinary context and Aseer-specific cuisine context.
+
+  - id: visit_saudi_abha_food
+    title: The Popular Cuisine in Abha
+    publisher: Visit Saudi
+    url: https://www.visitsaudi.com/en/aseer/stories/traditional-dishes-and-flavors-of-abha
+    use: Official tourism-facing descriptions of local cuisine.
+
+  - id: igcat_aseer_2024
+    title: Aseer 2024 is the first World Region of Gastronomy
+    publisher: IGCAT
+    url: https://igcat.org/aseer-2024-is-the-first-world-region-of-gastronomy/
+    use: International gastronomy designation and preservation/innovation framing.
+
+  - id: kku_food_gifts_launch_2026
+    title: King Khalid University Launches Food Gifts Competition
+    publisher: King Khalid University
+    url: https://www.kku.edu.sa/en/news/106642
+    use: Innovation in tourism food gifts while preserving Aseer heritage and cultural identity.
+
+  - id: kku_food_gifts_close_2026
+    title: Conclusion of the Food Gifts 2026 Competition
+    publisher: King Khalid University
+    url: https://www.kku.edu.sa/en/news/106651
+    use: Evaluation criteria including cultural/tourism value and sustainability.
+
+  - id: gastronomy_review_2026
+    title: Culinary heritage and innovation in Southern Saudi Arabia
+    publisher: International Journal of Gastronomy and Food Science
+    doi: 10.1016/j.ijgfs.2026.101519
+    url: https://doi.org/10.1016/j.ijgfs.2026.101519
+    use: Scholarly background linking heritage preservation, innovation, and sustainable gastronomy.
