@@ -82,38 +82,55 @@ def main():
     for row in scored:
         key = (row["model"], row["language"], row["repeat"], row["case_id"])
         by_pair[key][row["regime"]] = row
-    paired = {}
+
+    planned_contrasts = {
+        "instruction_without_grounding": ("neutral", "fidelity-aware"),
+        "grounding_without_instruction": ("neutral", "grounded-neutral"),
+        "grounding_with_instruction": ("fidelity-aware", "grounded-fidelity"),
+        "instruction_with_grounding": ("grounded-neutral", "grounded-fidelity"),
+    }
+    contrasts = {}
     for model in sorted({x["model"] for x in scored}):
-        pairs = [v for k, v in by_pair.items() if k[0] == model and {"neutral", "fidelity-aware"} <= set(v)]
-        neutral_only = sum(p["neutral"]["critical_distortion"] and not p["fidelity-aware"]["critical_distortion"] for p in pairs)
-        fidelity_only = sum(p["fidelity-aware"]["critical_distortion"] and not p["neutral"]["critical_distortion"] for p in pairs)
-        both = sum(p["neutral"]["critical_distortion"] and p["fidelity-aware"]["critical_distortion"] for p in pairs)
-        neither = len(pairs) - neutral_only - fidelity_only - both
-        n_ccdr = sum(p["neutral"]["critical_distortion"] for p in pairs) / len(pairs)
-        f_ccdr = sum(p["fidelity-aware"]["critical_distortion"] for p in pairs) / len(pairs)
-        paired[model] = {
-            "pairs": len(pairs),
-            "neutral_critical_to_fidelity_clean": neutral_only,
-            "neutral_clean_to_fidelity_critical": fidelity_only,
-            "both_critical": both,
-            "neither_critical": neither,
-            "ccdr_difference_fidelity_minus_neutral": f_ccdr - n_ccdr,
-            "exact_mcnemar_two_sided_p": exact_mcnemar(neutral_only, fidelity_only),
-        }
+        model_results = {}
+        for name, (a_regime, b_regime) in planned_contrasts.items():
+            pairs = [
+                v for k, v in by_pair.items()
+                if k[0] == model and {a_regime, b_regime} <= set(v)
+            ]
+            if not pairs:
+                continue
+            a_to_clean = sum(p[a_regime]["critical_distortion"] and not p[b_regime]["critical_distortion"] for p in pairs)
+            a_clean_to_b = sum(p[b_regime]["critical_distortion"] and not p[a_regime]["critical_distortion"] for p in pairs)
+            both = sum(p[a_regime]["critical_distortion"] and p[b_regime]["critical_distortion"] for p in pairs)
+            neither = len(pairs) - a_to_clean - a_clean_to_b - both
+            a_ccdr = sum(p[a_regime]["critical_distortion"] for p in pairs) / len(pairs)
+            b_ccdr = sum(p[b_regime]["critical_distortion"] for p in pairs) / len(pairs)
+            model_results[name] = {
+                "from_regime": a_regime,
+                "to_regime": b_regime,
+                "pairs": len(pairs),
+                "from_critical_to_clean": a_to_clean,
+                "from_clean_to_critical": a_clean_to_b,
+                "both_critical": both,
+                "neither_critical": neither,
+                "ccdr_difference_to_minus_from": b_ccdr - a_ccdr,
+                "exact_mcnemar_two_sided_p": exact_mcnemar(a_to_clean, a_clean_to_b),
+            }
+        contrasts[model] = model_results
 
     summary = {
         "analysis_status": "exploratory_ai_assisted_not_expert_validated",
         "generations": len(generations),
         "annotations": len(annotations),
         "aggregate": aggregate,
-        "paired": paired,
+        "planned_contrasts": contrasts,
     }
     (result_dir / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
-        "# Stage 002A Results — Exploratory AI-Assisted Pilot",
+        "# Stage 002 Results — Exploratory 2×2 Pilot",
         "",
-        "> **Evidence status:** exploratory only. Annotations are blinded and source-grounded but AI-assisted; no domain expert has validated these labels yet.",
+        "> **Evidence status:** exploratory only. Annotations are blinded and source-grounded but AI-assisted; no domain expert has validated these labels yet. Stage 002B was adaptively specified after Stage 002A.",
         "",
         f"Total generated outputs: **{len(generations)}**.",
         "",
@@ -125,22 +142,24 @@ def main():
     for key, item in aggregate.items():
         model, regime = key.split("|", 1)
         lines.append(f"| {model} | {regime} | {item['critical']} / {item['n']} | {item['ccdr']:.3f} |")
-    lines += ["", "## Paired transition analysis", ""]
-    for model, item in paired.items():
-        lines += [
-            f"### {model}",
-            f"- Neutral critical → fidelity-aware clean: **{item['neutral_critical_to_fidelity_clean']}**",
-            f"- Neutral clean → fidelity-aware critical: **{item['neutral_clean_to_fidelity_critical']}**",
-            f"- Both critical: **{item['both_critical']}**",
-            f"- Neither critical: **{item['neither_critical']}**",
-            f"- CCDR difference (fidelity − neutral): **{item['ccdr_difference_fidelity_minus_neutral']:+.3f}**",
-            f"- Exact paired p-value: **{item['exact_mcnemar_two_sided_p']}**",
-            "",
-        ]
+    lines += ["", "## Planned paired contrasts", ""]
+    for model, model_contrasts in contrasts.items():
+        lines.append(f"### {model}")
+        for name, item in model_contrasts.items():
+            lines += [
+                f"**{name}** — `{item['from_regime']}` → `{item['to_regime']}`",
+                f"- Critical → clean: **{item['from_critical_to_clean']}**; clean → critical: **{item['from_clean_to_critical']}**",
+                f"- Both critical: **{item['both_critical']}**; neither critical: **{item['neither_critical']}**",
+                f"- CCDR difference (to − from): **{item['ccdr_difference_to_minus_from']:+.3f}**",
+                f"- Exact paired p-value: **{item['exact_mcnemar_two_sided_p']}**",
+                "",
+            ]
     lines += [
         "## Interpretation boundary",
         "",
-        "This stage tests whether the instrument and intervention produce a plausible signal. It is not a paper-level effectiveness estimate. The next scientific gate is manual case inspection followed by domain-expert validation of the invariants and disputed labels.",
+        "Stage 002A tested instruction-only prompting and produced a ceiling failure. Stage 002B is an adaptive mechanistic follow-up testing source grounding. These data are hypothesis-generating; any apparent grounding effect must be replicated on held-out cases and expert-validated annotations.",
+        "",
+        "See `docs/STAGE_002A_MANUAL_AUDIT.md` for the controller's post-Stage-002A case inspection.",
         "",
     ]
     (ROOT / "docs/STAGE_002_RESULTS.md").write_text("\n".join(lines))
