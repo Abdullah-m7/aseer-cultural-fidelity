@@ -28,6 +28,8 @@ RESPONSE_COLUMNS = {
     "severity_if_violated",
     "missing_nuance_or_note",
 }
+ALLOWED_BASES = {"source_fact", "source_interpretation", "adaptation_boundary"}
+EXPECTED_BASE_MAIN_SHA = "6149ca6e25f633a2ae415c31ca72abc4a6e1a430"
 
 
 def load_jsonl(path: Path):
@@ -78,7 +80,11 @@ def main() -> None:
         fail("expert worksheet case set differs from the frozen five-case subset")
     if len(rows) != 15:
         fail(f"expected 15 invariant rows in expert worksheet; got {len(rows)}")
+    if "proposed_basis" not in rows[0]:
+        fail("expert worksheet is missing proposed_basis")
     for row in rows:
+        if row["proposed_basis"] not in ALLOWED_BASES:
+            fail(f"invalid proposed_basis for {row['case_id']}:{row['invariant_id']}: {row['proposed_basis']}")
         if any(row[col].strip() for col in RESPONSE_COLUMNS):
             fail("v0.1 expert worksheet already contains reviewer responses")
 
@@ -89,6 +95,8 @@ def main() -> None:
     manifest = json.loads(MANIFEST.read_text())
     if manifest.get("freeze_status") != "pre-expert_pre-generation":
         fail("freeze manifest has unexpected status")
+    if manifest.get("base_main_sha") != EXPECTED_BASE_MAIN_SHA:
+        fail(f"freeze manifest base_main_sha mismatch: {manifest.get('base_main_sha')}")
     if manifest.get("heldout_generation_count") != 0 or manifest.get("expert_response_count") != 0:
         fail("freeze manifest must record zero held-out generations and zero expert responses")
     for relpath, expected_hash in manifest.get("files", {}).items():
@@ -102,9 +110,12 @@ def main() -> None:
     print("PASS: Stage 003 pre-expert integrity gate")
     print(f"  heldout_cases={len(heldout)} unique_and_disjoint_from_stage001_pilot")
     print(f"  expert_subset_cases={len(EXPECTED_REVIEW_CASES)} invariant_rows={len(rows)}")
+    basis_counts = {basis: sum(row["proposed_basis"] == basis for row in rows) for basis in sorted(ALLOWED_BASES)}
     print("  reviewer_response_cells=blank")
+    print(f"  invariant_basis_counts={basis_counts}")
     print("  heldout_generation_artifacts=none")
     print(f"  freeze_manifest_files={len(manifest['files'])} hashes_match")
+    print(f"  freeze_base_main_sha={manifest['base_main_sha']}")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,8 @@
 
 For each invariant, the corresponding CSV worksheet asks whether the source is adequate, whether the invariant is valid, whether omission should be misleading for this task, and how severe a violation would be.
 
+**Invariant basis labels:** `source_fact` = directly documentary; `source_interpretation` = benchmark interpretation of documented material; `adaptation_boundary` = a proposed representation rule induced by the transformation task rather than a claim that the source itself states the rule.
+
 ## 1. ACF-FOOD-001 — Aseer culinary heritage
 
 **Source:** [Traditional Food in Aseer Province](https://saudipedia.com/en/traditional-food-in-aseer-province)
@@ -17,11 +19,11 @@ For each invariant, the corresponding CSV worksheet asks whether the source is a
 **Proposed hard invariants:**
 
 - `H1` — Haneeth is associated with Aseer Province.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_fact**; proposed `must_surface`: **yes**.
 - `H2` — The traditional preparation centers on meat cooked with a distinctive heated pit or vessel method rather than ordinary roasting.
-  Proposed `must_surface`: **no**.
+  Basis: **source_fact**; proposed `must_surface`: **no**.
 - `H3` — Any major change to the defining cooking method must be presented as an adaptation, not as the traditional method.
-  Proposed `must_surface`: **no**.
+  Basis: **adaptation_boundary**; proposed `must_surface`: **no**.
 
 **Question to the expert:** Which invariant is too strict, which one is missing, and what would make a modernized output misleading if it still used the traditional identity/name?
 
@@ -38,11 +40,11 @@ For each invariant, the corresponding CSV worksheet asks whether the source is a
 **Proposed hard invariants:**
 
 - `A1` — Areeka is associated with Aseer Province.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_fact**; proposed `must_surface`: **yes**.
 - `A2` — Dates, ghee, and honey are identity-bearing elements of the documented traditional presentation.
-  Proposed `must_surface`: **no**.
+  Basis: **source_interpretation**; proposed `must_surface`: **no**.
 - `A3` — If those identity-bearing elements are materially substituted, the result must be labeled as an adaptation.
-  Proposed `must_surface`: **no**.
+  Basis: **adaptation_boundary**; proposed `must_surface`: **no**.
 
 **Question to the expert:** Which invariant is too strict, which one is missing, and what would make a modernized output misleading if it still used the traditional identity/name?
 
@@ -59,11 +61,11 @@ For each invariant, the corresponding CSV worksheet asks whether the source is a
 **Proposed hard invariants:**
 
 - `W1` — The designation is World Region of Gastronomy 2024, awarded through IGCAT.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_fact**; proposed `must_surface`: **yes**.
 - `W2` — Aseer was the first region outside Europe to receive this title.
-  Proposed `must_surface`: **no**.
+  Basis: **source_fact**; proposed `must_surface`: **no**.
 - `W3` — The designation is tied to protecting/promoting local food and cultural uniqueness, not only culinary prestige.
-  Proposed `must_surface`: **no**.
+  Basis: **source_interpretation**; proposed `must_surface`: **no**.
 
 **Question to the expert:** Which invariant is too strict, which one is missing, and what would make a modernized output misleading if it still used the traditional identity/name?
 
@@ -80,11 +82,11 @@ For each invariant, the corresponding CSV worksheet asks whether the source is a
 **Proposed hard invariants:**
 
 - `Q1` — Al-Qatt Al-Asiri is specifically associated with Asir/Aseer regional cultural identity.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_fact**; proposed `must_surface`: **yes**.
 - `Q2` — The documented tradition is largely a women-practiced form of interior wall decoration, including guest-reception rooms.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_fact**; proposed `must_surface`: **yes**.
 - `Q3` — A materially redesigned hotel application may be contemporary, but it must not be presented as if the new design itself were the inherited traditional form.
-  Proposed `must_surface`: **no**.
+  Basis: **adaptation_boundary**; proposed `must_surface`: **no**.
 
 **Question to the expert:** Which invariant is too strict, which one is missing, and what would make a modernized output misleading if it still used the traditional identity/name?
 
@@ -101,10 +103,10 @@ For each invariant, the corresponding CSV worksheet asks whether the source is a
 **Proposed hard invariants:**
 
 - `V1` — Traditional Aseer village architecture is documented as using local environmental materials and harmonizing with the surrounding landscape.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_fact**; proposed `must_surface`: **yes**.
 - `V2` — The architecture and decoration are presented as expressions of Aseer cultural identity, not merely a generic mountain aesthetic.
-  Proposed `must_surface`: **yes**.
+  Basis: **source_interpretation**; proposed `must_surface`: **yes**.
 - `V3` — A new resort inspired by heritage villages must not be described as an original historic village or unchanged traditional structure.
-  Proposed `must_surface`: **no**.
+  Basis: **adaptation_boundary**; proposed `must_surface`: **no**.
 
 **Question to the expert:** Which invariant is too strict, which one is missing, and what would make a modernized output misleading if it still used the traditional identity/name?

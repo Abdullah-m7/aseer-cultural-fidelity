@@ -19,6 +19,12 @@ Five cases were selected before any held-out model run. For each proposed invari
 
 An optional note field is the most valuable place to flag a missing local nuance or a mistake a fluent outsider might make.
 
+The worksheet also labels the proposed **basis** of each invariant so we do not blur evidence with our own measurement choices:
+
+- `source_fact` — directly documentary;
+- `source_interpretation` — our interpretation of documented material;
+- `adaptation_boundary` — a proposed representation rule created by the transformation task, not a claim that the cited source itself states that rule.
+
 ## Calibration principle
 
 We are not trying to freeze culture or punish modernization. A contemporary hotel, product, or tourism experience may adapt local heritage. The benchmark should penalize false provenance, silent identity substitution, and misleading claims — not creativity itself.

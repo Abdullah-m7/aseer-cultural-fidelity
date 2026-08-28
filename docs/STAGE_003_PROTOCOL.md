@@ -29,6 +29,8 @@ The review asks for:
 - severity if the invariant is violated;
 - missing local nuance.
 
+Each reviewed invariant is also labeled `source_fact`, `source_interpretation`, or `adaptation_boundary`. This prevents a methodological adaptation rule from being misrepresented as something the source itself states.
+
 The first pass is methodological consultation, not publication data collection. Any later use of identifiable expert responses as research data requires an appropriate ethics determination.
 
 ## 003B held-out set

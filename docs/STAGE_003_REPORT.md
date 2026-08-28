@@ -64,7 +64,9 @@ At freeze time:
 - expert response cells filled: **0**;
 - Stage 001/held-out case-ID overlap: **0**;
 - frozen expert subset: **5 cases / 15 invariants**;
-- freeze-manifest files: **7**, all SHA-256 verified.
+- freeze-manifest files: **7**, all SHA-256 verified;
+- frozen base `main`: **6149ca6e25f633a2ae415c31ca72abc4a6e1a430**;
+- expert invariants explicitly separated into `source_fact`, `source_interpretation`, and `adaptation_boundary`.
 
 The `v0.1` expert worksheet must never be overwritten with feedback. External input will be copied into a new version and every benchmark change will be logged before any Stage 003B generation.
 
@@ -74,7 +76,7 @@ The `v0.1` expert worksheet must never be overwritten with feedback. External in
 - Stage 003 integrity gate: PASS;
 - Stage 001 pilot validator: PASS, 10/10;
 - Stage 002 factorial integrity gate: PASS;
-- unit tests: PASS;
+- unit tests: PASS, 11/11;
 - `git diff --check`: PASS.
 
 ## Next scientific gate
