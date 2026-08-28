@@ -41,3 +41,39 @@ sources:
     doi: 10.1016/j.ijgfs.2026.101519
     url: https://doi.org/10.1016/j.ijgfs.2026.101519
     use: Scholarly background linking heritage preservation, innovation, and sustainable gastronomy.
+
+  - id: unesco_al_qatt
+    title: Al-Qatt Al-Asiri, female traditional interior wall decoration in Asir, Saudi Arabia
+    publisher: UNESCO Intangible Cultural Heritage
+    url: https://ich.unesco.org/en/RL/al-qatt-al-asiri-female-traditional-interior-wall-decoration-in-asir-saudi-arabia-01261?RL=01261
+    use: Al-Qatt provenance, women-practiced interior decoration, guest-room context, and 2017 inscription.
+
+  - id: saudipedia_aseer_handicrafts
+    title: Handicrafts in Aseer Region
+    publisher: Saudipedia
+    url: https://saudipedia.com/en/handicrafts-in-aseer-region
+    use: Aseer honey as inherited craft, ecological basis, festivals, and modern value-added products.
+
+  - id: asda_aseer_villages
+    title: Aseer Villages | Heritage and Culture
+    publisher: Aseer Development Authority
+    url: https://www.asda.gov.sa/en/aseer-villages
+    use: Heritage-village architecture, local materials, landscape relationship, and cultural identity.
+
+  - id: asda_al_quriyyah
+    title: Al-Quriyyah Village
+    publisher: Aseer Development Authority
+    url: https://www.asda.gov.sa/en/aseer-villages/%D9%82%D8%B1%D9%8A%D8%A9-%D8%A7%D9%84%D9%82%D9%8F%D8%B1%D9%8A%D9%91%D8%A9
+    use: Stone-and-clay houses, Al-Masareeb passageways, ancient well, and village-specific tourism context.
+
+  - id: asda_strategy
+    title: Aseer Development Authority Development Strategy
+    publisher: Aseer Development Authority
+    url: https://www.asda.gov.sa/en/strategy
+    use: Official year-round destination vision, culture/heritage as competitive advantage, and community participation.
+
+  - id: asda_from_aseer
+    title: From Aseer | Aseer Development Authority
+    publisher: Aseer Development Authority
+    url: https://www.asda.gov.sa/en/from-aseer
+    use: Official authenticity framing across tangible heritage, intangible heritage, geography, and local building materials.
