@@ -29,9 +29,9 @@ def model_digest(model: str) -> str | None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--models", nargs="+", default=["qwen3:4b", "llama3.2:latest"])
+    ap.add_argument("--models", nargs="+", default=["llama3.2:latest"])
     ap.add_argument("--language", choices=["en", "ar"], default="en")
-    ap.add_argument("--regimes", nargs="+", default=["neutral", "fidelity-aware"])
+    ap.add_argument("--regimes", nargs="+", default=["neutral", "fidelity-aware", "grounded-neutral", "grounded-fidelity"])
     ap.add_argument("--repeats", type=int, default=1)
     ap.add_argument("--temperature", type=float, default=0.2)
     ap.add_argument("--seed", type=int, default=20260828)

@@ -53,6 +53,12 @@ def main() -> None:
         fail("at least one generation did not terminate with done_reason=stop")
     if {row.get("language") for row in generations} != {"en"}:
         fail("Stage 002 frozen set must be English-only")
+    if {row.get("temperature") for row in generations} != {0.2}:
+        fail("Stage 002 frozen set must use temperature=0.2")
+    if {row.get("seed") for row in generations} != {20260828}:
+        fail("Stage 002 frozen set must use seed=20260828")
+    if {row.get("repeat") for row in generations} != {1}:
+        fail("Stage 002 frozen set must use repeat=1")
     if len({(row.get("model"), row.get("model_digest")) for row in generations}) != 1:
         fail("Stage 002 frozen set must use one generator build")
 
