@@ -65,6 +65,8 @@ Accordingly, the exact 0.50 and 0.20 CCDR estimates must not be treated as final
 - model/regime metadata fields in annotation rows: none;
 - model/regime strings found in stored factorial judge outputs: none;
 - benchmark validator: PASS, 10/10 cases;
+- factorial artifact integrity gate: PASS, 40 generations / 40 annotations / 10 per cell / 4 raw blind batches;
+- repeat blind-pass case-level critical status agreement on the original Stage 002A outputs: 20/20 (same judge family; not human inter-rater reliability);
 - unit tests: PASS, 9/9;
 - `git diff --check`: PASS.
 
