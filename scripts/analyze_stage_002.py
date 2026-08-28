@@ -45,7 +45,7 @@ def mean_or_none(values):
 def main():
     result_dir = ROOT / "results/stage_002"
     generations = load_jsonl(result_dir / "generations.jsonl")
-    annotations = {x["response_id"]: x for x in load_jsonl(result_dir / "annotations_ai_assisted.jsonl")}
+    annotations = {x["response_id"]: x for x in load_jsonl(result_dir / "annotations_factorial_blinded.jsonl")}
     cases = {x["case_id"]: x for x in load_jsonl(ROOT / "benchmark/pilot/aseer_pilot_v0.1.jsonl")}
     if len(annotations) != len(generations):
         raise SystemExit(f"annotation/generation mismatch: {len(annotations)} vs {len(generations)}")
@@ -58,7 +58,7 @@ def main():
             **{k: generation[k] for k in ("response_id", "case_id", "model", "model_digest", "regime", "language", "repeat")},
             **score,
         })
-    (result_dir / "scored_outputs.jsonl").write_text(
+    (result_dir / "scored_outputs_factorial.jsonl").write_text(
         "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in scored)
     )
 
@@ -125,7 +125,7 @@ def main():
         "aggregate": aggregate,
         "planned_contrasts": contrasts,
     }
-    (result_dir / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    (result_dir / "summary_factorial.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
 
     lines = [
         "# Stage 002 Results — Exploratory 2×2 Pilot",
@@ -162,7 +162,7 @@ def main():
         "See `docs/STAGE_002A_MANUAL_AUDIT.md` for the controller's post-Stage-002A case inspection.",
         "",
     ]
-    (ROOT / "docs/STAGE_002_RESULTS.md").write_text("\n".join(lines))
+    (ROOT / "docs/STAGE_002_FACTORIAL_RESULTS.md").write_text("\n".join(lines))
     print(json.dumps(summary, indent=2, ensure_ascii=False))
 
 
