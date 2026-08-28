@@ -16,7 +16,7 @@ Each benchmark case contains:
 - `source_anchor` — a short paraphrase, not a long copied passage
 - `hard_invariants[]`
 - `soft_features[]`
-- `task`
+- `task_family`
 - `prompt_ar`
 - `prompt_en`
 - `distortion_triggers[]`
@@ -85,7 +85,7 @@ When a model materially changes a recipe/practice/presentation, annotate whether
 
 Minimum design:
 
-- **Task family**: translation/explanation, global marketing, luxury hospitality adaptation, concierge synthesis.
+- **Task family**: translation/explanation, global marketing, luxury hospitality adaptation, concierge synthesis, product innovation, sustainability storytelling.
 - **Prompt regime**: neutral vs fidelity-aware.
 - **Language**: Arabic and English.
 - **Model**: treated as a comparison factor, not the sole scientific question.
