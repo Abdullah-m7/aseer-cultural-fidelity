@@ -136,12 +136,13 @@ def main():
         "",
         "## Aggregate CCDR",
         "",
-        "| Model | Regime | Critical / n | CCDR |",
-        "|---|---|---:|---:|",
+        "| Model | Regime | Critical / n | CCDR | Wilson 95% CI |",
+        "|---|---|---:|---:|---:|",
     ]
     for key, item in aggregate.items():
         model, regime = key.split("|", 1)
-        lines.append(f"| {model} | {regime} | {item['critical']} / {item['n']} | {item['ccdr']:.3f} |")
+        lo, hi = item["ccdr_wilson_95"]
+        lines.append(f"| {model} | {regime} | {item['critical']} / {item['n']} | {item['ccdr']:.3f} | [{lo:.3f}, {hi:.3f}] |")
     lines += ["", "## Planned paired contrasts", ""]
     for model, model_contrasts in contrasts.items():
         lines.append(f"### {model}")
@@ -151,7 +152,7 @@ def main():
                 f"- Critical → clean: **{item['from_critical_to_clean']}**; clean → critical: **{item['from_clean_to_critical']}**",
                 f"- Both critical: **{item['both_critical']}**; neither critical: **{item['neither_critical']}**",
                 f"- CCDR difference (to − from): **{item['ccdr_difference_to_minus_from']:+.3f}**",
-                f"- Exact paired p-value: **{item['exact_mcnemar_two_sided_p']}**",
+                f"- Exact paired p-value: **{item['exact_mcnemar_two_sided_p'] if item['exact_mcnemar_two_sided_p'] is not None else 'not defined (no discordant pairs)'}**",
                 "",
             ]
     lines += [
@@ -159,7 +160,7 @@ def main():
         "",
         "Stage 002A tested instruction-only prompting and produced a ceiling failure. Stage 002B is an adaptive mechanistic follow-up testing source grounding. These data are hypothesis-generating; any apparent grounding effect must be replicated on held-out cases and expert-validated annotations.",
         "",
-        "See `docs/STAGE_002A_MANUAL_AUDIT.md` for the controller's post-Stage-002A case inspection.",
+        "See `docs/STAGE_002A_MANUAL_AUDIT.md` and `docs/STAGE_002B_MANUAL_AUDIT.md` for the controller's post-analysis case inspections and sensitivity boundary.",
         "",
     ]
     (ROOT / "docs/STAGE_002_FACTORIAL_RESULTS.md").write_text("\n".join(lines))

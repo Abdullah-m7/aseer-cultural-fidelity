@@ -6,12 +6,12 @@ Total generated outputs: **40**.
 
 ## Aggregate CCDR
 
-| Model | Regime | Critical / n | CCDR |
-|---|---|---:|---:|
-| llama3.2:latest | fidelity-aware | 10 / 10 | 1.000 |
-| llama3.2:latest | grounded-fidelity | 2 / 10 | 0.200 |
-| llama3.2:latest | grounded-neutral | 5 / 10 | 0.500 |
-| llama3.2:latest | neutral | 10 / 10 | 1.000 |
+| Model | Regime | Critical / n | CCDR | Wilson 95% CI |
+|---|---|---:|---:|---:|
+| llama3.2:latest | fidelity-aware | 10 / 10 | 1.000 | [0.722, 1.000] |
+| llama3.2:latest | grounded-fidelity | 2 / 10 | 0.200 | [0.057, 0.510] |
+| llama3.2:latest | grounded-neutral | 5 / 10 | 0.500 | [0.237, 0.763] |
+| llama3.2:latest | neutral | 10 / 10 | 1.000 | [0.722, 1.000] |
 
 ## Planned paired contrasts
 
@@ -20,7 +20,7 @@ Total generated outputs: **40**.
 - Critical → clean: **0**; clean → critical: **0**
 - Both critical: **10**; neither critical: **0**
 - CCDR difference (to − from): **+0.000**
-- Exact paired p-value: **None**
+- Exact paired p-value: **not defined (no discordant pairs)**
 
 **grounding_without_instruction** — `neutral` → `grounded-neutral`
 - Critical → clean: **5**; clean → critical: **0**
@@ -44,4 +44,4 @@ Total generated outputs: **40**.
 
 Stage 002A tested instruction-only prompting and produced a ceiling failure. Stage 002B is an adaptive mechanistic follow-up testing source grounding. These data are hypothesis-generating; any apparent grounding effect must be replicated on held-out cases and expert-validated annotations.
 
-See `docs/STAGE_002A_MANUAL_AUDIT.md` for the controller's post-Stage-002A case inspection.
+See `docs/STAGE_002A_MANUAL_AUDIT.md` and `docs/STAGE_002B_MANUAL_AUDIT.md` for the controller's post-analysis case inspections and sensitivity boundary.

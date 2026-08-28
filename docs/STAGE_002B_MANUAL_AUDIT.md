@@ -19,6 +19,12 @@ The strongest interpretation is therefore not â€œa better prompt fixes culture.â
 
 > **Fidelity instructions appear useful only after the model has reliable local evidence to preserve.**
 
+## Mechanistic decomposition
+
+The case-level improvement is not only an omission effect. In the unified blind pass, **origin reassignment** fell from 8/10 neutral and 6/10 fidelity-only outputs to **0/10 in both grounded cells**. Cases containing an explicit hard-invariant contradiction or replacement fell from 8/10 neutral and 9/10 fidelity-only to 2/10 grounded-neutral and 1/10 grounded-fidelity.
+
+This separation matters: short source grounding appears to suppress **identity drift** much more strongly than it suppresses **embellishment drift**. The latter remains visible in unsupported ingredients, historical language, provenance claims, and decorative cultural specifics.
+
 ## Residual grounded failures
 Two grounded-fidelity outputs were classified critical:
 
