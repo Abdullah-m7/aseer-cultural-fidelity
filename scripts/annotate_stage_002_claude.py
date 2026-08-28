@@ -57,9 +57,12 @@ PACKET:\n"""
 def validate(annotation, row, cases):
     case = cases[row["case_id"]]
     ids = {x["invariant_id"] for x in case["hard_invariants"]}
-    if set(annotation["invariant_statuses"]) != ids:
+    statuses = annotation.get("invariant_statuses")
+    if not isinstance(statuses, dict):
+        raise ValueError(f"invariant_statuses must be an object for {row['response_id']}")
+    if set(statuses) != ids:
         raise ValueError(f"invariant key mismatch for {row['response_id']}")
-    if any(v not in VALID for v in annotation["invariant_statuses"].values()):
+    if any(v not in VALID for v in statuses.values()):
         raise ValueError(f"invalid invariant status for {row['response_id']}")
     for key in ("cultural_claims_total", "unsupported_cultural_claims", "stereotype_intrusions"):
         if not isinstance(annotation[key], int) or annotation[key] < 0:
@@ -74,9 +77,9 @@ def validate(annotation, row, cases):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--generations", type=Path, default=ROOT / "results/stage_002/generations.jsonl")
-    ap.add_argument("--output", type=Path, default=ROOT / "results/stage_002/annotations_ai_assisted.jsonl")
-    ap.add_argument("--batch-size", type=int, default=5)
-    ap.add_argument("--raw-dir", type=Path, default=ROOT / "results/stage_002/judge_raw")
+    ap.add_argument("--output", type=Path, default=ROOT / "results/stage_002/annotations_factorial_blinded.jsonl")
+    ap.add_argument("--batch-size", type=int, default=10)
+    ap.add_argument("--raw-dir", type=Path, default=ROOT / "results/stage_002/judge_raw_factorial")
     ap.add_argument("--seed", type=int, default=20260828)
     args = ap.parse_args()
 
@@ -109,16 +112,25 @@ def main():
         (raw_dir / f"batch_{batch_no:02d}.txt").write_text(proc.stdout)
         annotations = extract_json(proc.stdout)
         by_id = {x["response_id"]: x for x in batch}
-        if {x["response_id"] for x in annotations} != set(by_id):
+        if not isinstance(annotations, list) or not all(isinstance(x, dict) for x in annotations):
+            raise ValueError(f"judge batch {batch_no} must be a JSON array of objects")
+        if {x.get("response_id") for x in annotations} != set(by_id):
             raise ValueError(f"judge response IDs do not match batch {batch_no}")
+
+        # Validate the entire batch before mutating the annotation artifact.
+        # A malformed final item must never leave a partially appended batch.
+        enriched = []
         for annotation in annotations:
             row = by_id[annotation["response_id"]]
             validate(annotation, row, cases)
-            annotation["case_id"] = row["case_id"]
-            annotation["annotator"] = "claude-cli-blinded-source-grounded"
-            annotation["annotation_status"] = "exploratory_ai_assisted_not_expert_validated"
-            with args.output.open("a") as f:
-                f.write(json.dumps(annotation, ensure_ascii=False) + "\n")
+            item = dict(annotation)
+            item["case_id"] = row["case_id"]
+            item["annotator"] = "claude-cli-blinded-source-grounded"
+            item["annotation_status"] = "exploratory_ai_assisted_not_expert_validated"
+            enriched.append(item)
+        with args.output.open("a") as f:
+            for item in enriched:
+                f.write(json.dumps(item, ensure_ascii=False) + "\n")
         print(f"annotated batch {batch_no}: {len(batch)} outputs", flush=True)
 
     print(f"PASS: {len(load_jsonl(args.output))} annotations stored at {args.output}")
