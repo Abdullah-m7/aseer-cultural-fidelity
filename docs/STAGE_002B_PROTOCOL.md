@@ -26,7 +26,7 @@ Grounding consists of the case's short `source_anchor` plus source title/authori
 Primary endpoint remains CCDR without modification. Secondary metrics remain unchanged.
 
 ## Blinding
-New outputs are added to the same anonymous response-ID pool and annotated using the same source-grounded Claude CLI protocol. The annotation assistant does not receive regime or model metadata.
+For the factorial analysis, **all 40 outputs are re-annotated together in one newly randomized blind pass** using the same source-grounded Claude CLI protocol. This avoids confounding the two new grounding cells with a later judge session. The frozen Stage 002A annotations remain preserved separately as historical evidence. The annotation assistant does not receive regime or model metadata.
 
 ## Planned descriptive contrasts
 1. Fidelity instruction effect without grounding: `neutral` vs `fidelity-aware`.

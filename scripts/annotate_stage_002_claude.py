@@ -76,6 +76,7 @@ def main():
     ap.add_argument("--generations", type=Path, default=ROOT / "results/stage_002/generations.jsonl")
     ap.add_argument("--output", type=Path, default=ROOT / "results/stage_002/annotations_ai_assisted.jsonl")
     ap.add_argument("--batch-size", type=int, default=5)
+    ap.add_argument("--raw-dir", type=Path, default=ROOT / "results/stage_002/judge_raw")
     ap.add_argument("--seed", type=int, default=20260828)
     args = ap.parse_args()
 
@@ -88,7 +89,7 @@ def main():
     done = {x["response_id"] for x in existing}
     pending = [x for x in rows if x["response_id"] not in done]
     random.Random(args.seed).shuffle(pending)
-    raw_dir = ROOT / "results/stage_002/judge_raw"
+    raw_dir = args.raw_dir
     raw_dir.mkdir(parents=True, exist_ok=True)
 
     start_index = len(list(raw_dir.glob("batch_*.txt"))) + 1
