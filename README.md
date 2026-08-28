@@ -55,11 +55,20 @@ The adaptive result suggests a mechanistic hypothesis: a model cannot reliably �
 
 See `docs/STAGE_002_FACTORIAL_RESULTS.md` and `docs/STAGE_002B_MANUAL_AUDIT.md`.
 
+## Stage 003 pre-expert freeze
+
+Stage 003 does **not** immediately scale the model run. It first addresses construct validity. A five-case, fifteen-invariant expert-calibration packet is frozen without model outputs or Stage 002 results, and six new held-out Aseer cases are frozen **before any generation**.
+
+The held-out set broadens the testbed from gastronomy to Al-Qatt Al-Asiri, Aseeri honey, heritage architecture, village interpretation, official destination strategy, and tangible/intangible heritage. No Stage 003 model result is valid until expert-calibration decisions are versioned and frozen.
+
+See `docs/STAGE_003_PROTOCOL.md` and `expert_review/BLINDED_CALIBRATION_BRIEF.md`.
+
 ## Repository map
 
 ```text
 benchmark/
-  pilot/        Source-anchored pilot cases
+  pilot/        Source-anchored development/pilot cases
+  heldout/      Frozen pre-generation replication cases
   schema/       Machine-readable benchmark contracts
 docs/
   LITERATURE_MAP.md
@@ -70,6 +79,13 @@ docs/
   STAGE_002B_PROTOCOL.md
   STAGE_002_FACTORIAL_RESULTS.md
   STAGE_002B_MANUAL_AUDIT.md
+  STAGE_003_PROTOCOL.md
+  STAGE_003_SOURCE_NOTES.md
+expert_review/
+  BLINDED_CALIBRATION_BRIEF.md
+  CASEBOOK_V0.1.md
+  calibration_worksheet_v0.1.csv
+  FREEZE_MANIFEST_V0.1.json
 references/
   sources.yaml
 scripts/
@@ -78,6 +94,7 @@ scripts/
   annotate_stage_002_claude.py
   analyze_stage_002.py
   validate_stage_002_factorial.py
+  validate_stage_003.py
 src/acf/
   experiment.py
   scoring.py
@@ -96,4 +113,4 @@ The testbed is intentionally designed so domain experts in Aseer culture, culina
 
 ## Status
 
-**Stage 002 — exploratory factorial pilot complete on the research branch; expert calibration is the next scientific gate.**
+**Stage 003A — pre-expert / pre-generation freeze. Expert calibration is the active scientific gate; the held-out set must remain unrun until calibration decisions are versioned.**

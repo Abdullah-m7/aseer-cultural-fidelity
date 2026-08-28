@@ -1,0 +1,17 @@
+{
+  "stage": "003A",
+  "freeze_status": "pre-expert_pre-generation",
+  "created_date": "2026-08-28",
+  "base_main_sha": "b33b9346cc9215718bce2812e39fe9db9a4d83ae",
+  "heldout_generation_count": 0,
+  "expert_response_count": 0,
+  "files": {
+    "benchmark/heldout/aseer_heldout_v0.1.jsonl": "dfda53cc959cfadfd1d7e9678ba152348dfc5c7c3fee1fd26f2b3779dcdfaeee",
+    "expert_review/calibration_worksheet_v0.1.csv": "c0a4267d5d04dacd8e8a852b9b6adb2a21a06821055c8c04048963939dd0d646",
+    "expert_review/BLINDED_CALIBRATION_BRIEF.md": "6659509dbf0011239e56192af2f7b242e09d9b07e797d86aee74b5d0a7e76ef9",
+    "expert_review/CASEBOOK_V0.1.md": "996a3581c5add73433b5c5e8f308756c0a7f32a9adb753944621d671a7ef6e86",
+    "docs/STAGE_003_PROTOCOL.md": "164ae905afcebbf6118bfd3b3a124719e94d24af4eb2163b85b65c002d0891ae",
+    "docs/STAGE_003_SOURCE_NOTES.md": "70eaac83e18daa10a96cd25f44ace3727bd452a1f216b6da8e791caaf65ae2eb",
+    "references/sources.yaml": "1d608ae9e346474ed76fb42f24d848e2ac4eb8c0d6cac389dfc091fcba34726f"
+  }
+}
