@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from acf.experiment import ollama_generate, response_id  # noqa: E402
+from acf.experiment import build_generation_prompt, ollama_generate, response_id  # noqa: E402
 
 
 def load_cases(path: Path):
@@ -31,6 +31,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", nargs="+", default=["qwen3:4b", "llama3.2:latest"])
     ap.add_argument("--language", choices=["en", "ar"], default="en")
+    ap.add_argument("--regimes", nargs="+", default=["neutral", "fidelity-aware"])
     ap.add_argument("--repeats", type=int, default=1)
     ap.add_argument("--temperature", type=float, default=0.2)
     ap.add_argument("--seed", type=int, default=20260828)
@@ -49,14 +50,14 @@ def main() -> None:
     for model in args.models:
         digest = model_digest(model)
         for case in cases:
-            for regime in ("neutral", "fidelity-aware"):
+            for regime in args.regimes:
                 for repeat in range(1, args.repeats + 1):
                     rid = response_id(case["case_id"], model, regime, args.language, repeat)
                     if rid in completed:
                         continue
                     result = ollama_generate(
                         model,
-                        case[f"prompt_{args.language}"],
+                        build_generation_prompt(case, args.language, regime),
                         regime,
                         temperature=args.temperature,
                         seed=args.seed + repeat - 1,
