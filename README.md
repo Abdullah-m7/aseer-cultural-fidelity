@@ -42,18 +42,18 @@ See [`docs/STAGE_001_REPORT.md`](docs/STAGE_001_REPORT.md).
 4. Does prompt/output language change the probability or type of distortion?
 5. Are cultural errors primarily omissions, substitutions, false provenance, or stereotype-driven additions?
 
-## Proposed first experiment
+## Stage 002 exploratory result
 
-The pilot is designed for a compact factorial study:
+A first English-language 2×2 pilot separated **source grounding** from a generic **cultural-fidelity instruction** using `llama3.2:latest` and 10 paired Aseer cases per condition. In a unified blinded AI-assisted annotation pass, strict CCDR was:
 
-- source-grounded Aseer cases;
-- multiple applied transformation tasks;
-- Arabic and English conditions;
-- neutral vs fidelity-preserving prompt regimes;
-- repeated generations per condition;
-- blinded annotation at the invariant level.
+- neutral: **1.00 (10/10)**
+- fidelity instruction only: **1.00 (10/10)**
+- source grounding only: **0.50 (5/10)**
+- grounding + fidelity instruction: **0.20 (2/10)**
 
-The primary endpoint is **CCDR**, not a subjective single-score notion of “authenticity.” Secondary measures retain the structure of the error rather than hiding it in one composite score.
+The adaptive result suggests a mechanistic hypothesis: a model cannot reliably “preserve” local culture from a generic instruction when its underlying local prior is wrong; short authoritative grounding may be the necessary first control. These are **exploratory, not expert-validated effect estimates**. Unsupported cultural embellishment also remained common even after grounding.
+
+See `docs/STAGE_002_FACTORIAL_RESULTS.md` and `docs/STAGE_002B_MANUAL_AUDIT.md`.
 
 ## Repository map
 
@@ -66,13 +66,23 @@ docs/
   MEASUREMENT_PROTOCOL.md
   RESEARCH_CHARTER.md
   STAGE_001_REPORT.md
+  STAGE_002A_MANUAL_AUDIT.md
+  STAGE_002B_PROTOCOL.md
+  STAGE_002_FACTORIAL_RESULTS.md
+  STAGE_002B_MANUAL_AUDIT.md
 references/
   sources.yaml
 scripts/
   validate_pilot.py
+  run_stage_002_pilot.py
+  annotate_stage_002_claude.py
+  analyze_stage_002.py
+  validate_stage_002_factorial.py
 src/acf/
+  experiment.py
   scoring.py
 tests/
+  test_experiment.py
   test_scoring.py
 ```
 
@@ -86,4 +96,4 @@ The testbed is intentionally designed so domain experts in Aseer culture, culina
 
 ## Status
 
-**Stage 001 — active.** Foundation and pilot are being built on `research/stage-001-source-anchored-pilot`.
+**Stage 002 — exploratory factorial pilot complete on the research branch; expert calibration is the next scientific gate.**
