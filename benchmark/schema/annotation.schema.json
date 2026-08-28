@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Abdullah-m7/aseer-cultural-fidelity/benchmark/schema/annotation.schema.json",
+  "title": "Aseer Cultural Fidelity annotation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "invariant_statuses"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "invariant_statuses": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["preserved", "omitted", "contradicted", "replaced", "not_applicable"]
+      }
+    },
+    "fabricated_provenance": {"type": "boolean", "default": false},
+    "origin_reassignment": {"type": "boolean", "default": false},
+    "unsupported_cultural_claims": {"type": "integer", "minimum": 0, "default": 0},
+    "cultural_claims_total": {"type": "integer", "minimum": 0, "default": 0},
+    "stereotype_intrusions": {"type": "integer", "minimum": 0, "default": 0},
+    "material_adaptation": {"type": "boolean", "default": false},
+    "adaptation_disclosed": {"type": "boolean", "default": false},
+    "notes": {"type": "string"}
+  }
+}
