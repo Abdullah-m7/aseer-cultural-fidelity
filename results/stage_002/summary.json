@@ -1,0 +1,42 @@
+{
+  "analysis_status": "exploratory_ai_assisted_not_expert_validated",
+  "generations": 20,
+  "annotations": 20,
+  "aggregate": {
+    "llama3.2:latest|fidelity-aware": {
+      "n": 10,
+      "critical": 10,
+      "ccdr": 1.0,
+      "ccdr_wilson_95": [
+        0.7224672001371107,
+        0.9999999999999999
+      ],
+      "mean_invariant_preservation_rate": 0.15,
+      "mean_required_invariant_omission_rate": 0.3888888888888889,
+      "mean_unsupported_cultural_claim_rate": 0.7633333333333333
+    },
+    "llama3.2:latest|neutral": {
+      "n": 10,
+      "critical": 10,
+      "ccdr": 1.0,
+      "ccdr_wilson_95": [
+        0.7224672001371107,
+        0.9999999999999999
+      ],
+      "mean_invariant_preservation_rate": 0.09999999999999999,
+      "mean_required_invariant_omission_rate": 0.3888888888888889,
+      "mean_unsupported_cultural_claim_rate": 0.8433333333333334
+    }
+  },
+  "paired": {
+    "llama3.2:latest": {
+      "pairs": 10,
+      "neutral_critical_to_fidelity_clean": 0,
+      "neutral_clean_to_fidelity_critical": 0,
+      "both_critical": 10,
+      "neither_critical": 0,
+      "ccdr_difference_fidelity_minus_neutral": 0.0,
+      "exact_mcnemar_two_sided_p": null
+    }
+  }
+}
